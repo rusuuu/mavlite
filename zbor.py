@@ -1,3 +1,8 @@
+import os
+RADACINA = os.path.dirname(os.path.abspath(__file__))
+DATE = os.path.join(RADACINA, 'date')
+os.makedirs(DATE, exist_ok=True)
+
 import csv, time, sys, math
 from pymavlink import mavutil
 
@@ -42,7 +47,7 @@ def trimite_tinta(nord, est, alt):
         nord, est, -alt,
         0,0,0, 0,0,0, 0,0)
 
-f = open(f'{SCENARIU}.csv', 'w', newline='')
+f = open(os.path.join(DATE, f'{SCENARIU}.csv'), 'w', newline='')
 w = csv.writer(f)
 w.writerow(['t','lat','lon','alt','vx','vy','vz','hdg','n','e'])
 t0 = time.time()
@@ -102,4 +107,4 @@ while time.time() - t_h < durata:
     citeste_si_logheaza()
 
 f.close()
-print(f"Gata. Salvat in {SCENARIU}.csv")
+print(f"Gata. Salvat in date/{SCENARIU}.csv")

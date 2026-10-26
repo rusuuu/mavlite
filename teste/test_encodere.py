@@ -1,6 +1,9 @@
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+RADACINA = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATE = os.path.join(RADACINA, 'date')
+
 import pandas as pd
 import lpp
 
@@ -10,8 +13,7 @@ print(f"{'scenariu':10} {'metoda':14} {'octeti':>7} {'err_med':>9} {'err_p95':>9
 print("-" * 62)
 
 for s in SCENARII:
-    RADACINA = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    d = pd.read_csv(os.path.join(RADACINA, f'{s}.csv'))
+    d = pd.read_csv(os.path.join(DATE, f'{s}.csv'))
     d = d[d['lat'].abs() > 0.001].reset_index(drop=True)
     lat_ref = d['lat'].iloc[0]
     lon_ref = d['lon'].iloc[0]

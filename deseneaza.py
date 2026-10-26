@@ -1,3 +1,9 @@
+import os
+RADACINA = os.path.dirname(os.path.abspath(__file__))
+DATE = os.path.join(RADACINA, 'date')
+REZULTATE = os.path.join(RADACINA, 'rezultate')
+os.makedirs(REZULTATE, exist_ok=True)
+
 import sys
 import pandas as pd
 import matplotlib
@@ -8,7 +14,7 @@ scenarii = ['linie', 'patrat', 'zigzag', 'hover']
 fig, axes = plt.subplots(1, 4, figsize=(18, 4.5))
 
 for ax, s in zip(axes, scenarii):
-    d = pd.read_csv(f'{s}.csv')
+    d = pd.read_csv(os.path.join(DATE, f'{s}.csv'))
     ax.plot(d['e'], d['n'], linewidth=1)
     ax.plot(d['e'].iloc[0], d['n'].iloc[0], 'go', label='start')
     ax.plot(d['e'].iloc[-1], d['n'].iloc[-1], 'ro', label='stop')
@@ -20,6 +26,6 @@ for ax, s in zip(axes, scenarii):
     ax.legend(fontsize=8)
 
 plt.tight_layout()
-plt.savefig('traiectorii.png', dpi=120)
+plt.savefig(os.path.join(REZULTATE, 'traiectorii.png'), dpi=120)
 print("Salvat in traiectorii.png")
 
